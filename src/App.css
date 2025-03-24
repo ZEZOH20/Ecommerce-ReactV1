@@ -1,0 +1,4 @@
+
+.App-header {
+    @apply flex flex-row justify-center items-center w-full;
+}
