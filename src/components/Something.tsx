@@ -6,14 +6,12 @@ type Something = {
     Age: number,
 }
 
-const Something = (props : Something) => {
-    const { Name , Description } = props;
+const Something = ({ Name }: Something) => {
+
     return (
         <div className={"App-header"}>
             <h1>klsjdf</h1>
-            {
-            props.Name?.toUpperCase()
-           }
+            {  Name?.toUpperCase() }
         </div>
     )
 }
