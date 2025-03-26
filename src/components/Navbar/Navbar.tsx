@@ -1,10 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import styles from './Navbar.module.css';
+
 
 function Navbar() {
   return(
     <>
-        <p>Hello from Navbar</p>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/signin">Signin</Link></li>
+          <li><Link to="/signup">Signup</Link></li>
+        </ul>
     </>
   )
 };

@@ -1,10 +1,17 @@
 import React from 'react';
+import Navbar from '../Navbar/Navbar';
+import Footer from '../Footer/Footer';
+import { Outlet } from 'react-router-dom';
 // import styles from './Layout.module.css';
+
 
 function Layout() {
   return(
     <>
-        <p>Hello from Layout</p>
+    
+          <Navbar/>
+            <Outlet></Outlet>
+          <Footer/>
     </>
   )
 };
