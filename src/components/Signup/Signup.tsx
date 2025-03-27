@@ -4,6 +4,7 @@ import * as Yup from "yup"
 import axios from "axios"
 import AlertBox from '../utilities/AlertBox/AlertBox';
 import Input from '../utilities/Input/Input';
+import Label from "../utilities/Label/Label.tsx";
 
 
 
@@ -50,7 +51,7 @@ function Signup(){
         {/* <Label>Name</Label> */}
         <div className="relative z-0 w-full mb-5 group">
             <Input type="text" name="name" value={values.name} id="floating_name" onChange={handleChange} onBlur={handleBlur}/>
-            <label htmlFor="floating_name" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
+            <Label htmlFor="floating_name">Name</Label>
         </div>
 
         {errors.name && touched.name &&
