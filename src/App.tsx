@@ -30,8 +30,8 @@ function App() {
     ])
     return (
         <>
-             {/*<RouterProvider router={router}/>*/}
-            <Signup/>
+             <RouterProvider router={router}/>
+            {/* <Signup/> */}
             {/*<Cards/>*/}
         </>
     )
