@@ -1,11 +1,13 @@
 import React from 'react';
 // import styles from './AlertBox.module.css';
-
-function AlertBox({children}) {
+interface Props{
+  children : React.ReactNode;
+}
+function AlertBox(props:Props) {
   return(
     <>
         <div className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-           {children}
+           {props.children}
         </div>
     </>
   )

@@ -12,7 +12,7 @@ const Cards = () => {
             .catch(e => setApiError(e.message));
 
     }, []);
-    console.log("title: ",products);
+    console.log("products: ",products);
     return (
         <>
             <div className=" grid grid-cols-3 gap-2">
