@@ -6,9 +6,11 @@ import AlertBox from '../utilities/AlertBox/AlertBox';
 import Input from '../utilities/Input/Input';
 import Label from "../utilities/Label/Label.tsx";
 import Button from '../utilities/Button/Button.tsx';
+import { useNavigate } from 'react-router-dom';
 
-
+// const navigate=useNavigate();
 function Signup(){
+  const navigate= useNavigate();
   const [apiError, setApiError] = useState(null);
   const validationSchema=Yup.object({
     name: Yup.string().required("Name is required").min(3,"Name must be at least 3 characters").max(10,"Name is too long"),
@@ -30,7 +32,14 @@ function Signup(){
     onSubmit:()=>{
       console.log(values);
       axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup",values)
-      .then(msg=>console.log(msg))
+      .then(data=>{
+        // console.log(data.data.token);
+        console.log("success");
+        localStorage.setItem("token", data.data.token);
+        
+
+        navigate('/signin');
+      })
       .catch(error => setApiError(error?.response?.data?.message))
     }
   });

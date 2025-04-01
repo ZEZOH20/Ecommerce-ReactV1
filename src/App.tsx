@@ -6,13 +6,14 @@ import Footer from './components/Footer/Footer.tsx';
 import Page404 from './components/Page404/Page404.tsx';
 import Home from './components/Home/Home.tsx';
 import Layout from './components/Layout/Layout.tsx';
-import Child from './components/Child/child.tsx';
+
 // import React from "react";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import AlertBox from "./components/utilities/AlertBox/AlertBox.tsx";
 import Cards from "./components/Cards/Cards.tsx";
+import UserContext from './Context/UserContext.tsx';
 
 
 
@@ -29,8 +30,12 @@ function App() {
 
     ])
     return (
-        <>
-             <RouterProvider router={router}/>
+        <> 
+            <UserContext>
+                <RouterProvider router={router}/>
+            </UserContext>
+             
+             {/* <p>Hello</p> */}
             {/* <Signup/> */}
             {/*<Cards/>*/}
         </>
