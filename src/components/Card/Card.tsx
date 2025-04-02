@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import officeImg from '../../assets/office.jpg';
 import Button from "../utilities/Button/Button.tsx";
 import axios from "axios";
 import AlertBox from "../utilities/AlertBox/AlertBox.tsx";
+import { userContext } from '../../Context/UserContext.tsx';
 // import styles from './Card.module.css';
 
 const Card = (props:{children :React.ReactNode}) => {
+    const {token} = useContext(userContext);
     return (
         // <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
         //      src={officeImg} alt=""/>
@@ -41,8 +43,9 @@ const Card = (props:{children :React.ReactNode}) => {
             <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3">{props.rating}</span>
         </div>
         <div className="flex items-center justify-between">
-            <span className="text-3xl font-bold text-gray-900 dark:text-white">{props.price}</span>
-            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>
+            <span className="text-3xl font-bold text-gray-900 dark:text-white">${props.price}</span>
+            
+            {token && <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>}
         </div>
     </div>
 </div>

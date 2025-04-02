@@ -35,7 +35,7 @@ function Signup(){
       .then(data=>{
         // console.log(data.data.token);
         console.log("success");
-        localStorage.setItem("token", data.data.token);
+        // localStorage.setItem("token", data.data.token);
         
 
         navigate('/signin');

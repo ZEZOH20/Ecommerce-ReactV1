@@ -14,6 +14,10 @@ import axios from "axios";
 import AlertBox from "./components/utilities/AlertBox/AlertBox.tsx";
 import Cards from "./components/Cards/Cards.tsx";
 import UserContext from './Context/UserContext.tsx';
+import Cart from './components/Cart/Cart.tsx';
+import Categories from './components/Categories/Categories.tsx';
+import Products from './components/Products/Products.tsx';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
 
 
 
@@ -21,9 +25,12 @@ function App() {
     const router = createBrowserRouter([
         {
             path: '', element: <Layout/>, children: [
-                {index: true, element: <Home/>},
+                {index: true, element: <ProtectedRoute><Home/></ProtectedRoute>},
                 {path: '/signin', element: <Signin/>},
                 {path: '/signup', element: <Signup/>},
+                {path: '/cart', element: <ProtectedRoute><Cart/></ProtectedRoute>},
+                {path: '/Products', element: <ProtectedRoute><Products/></ProtectedRoute>},
+                {path: '/Categories', element: <ProtectedRoute><Categories/></ProtectedRoute>},
                 {path: '*', element: <Page404/>},
             ]
         }

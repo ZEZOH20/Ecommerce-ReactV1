@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {useFormik} from "formik";
 import * as Yup from "yup"
 import axios from "axios"
@@ -6,10 +6,12 @@ import Label from '../utilities/Label/Label';
 import Input from '../utilities/Input/Input';
 import Button from '../utilities/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import { userContext } from '../../Context/UserContext';
 
 
 
 function Signin() {
+    const {token, setToken} = useContext(userContext);
     const navigate=useNavigate();
     const [apiError, setApiError] = useState(null);
     const validationSchema = Yup.object({
@@ -26,10 +28,13 @@ function Signin() {
         validationSchema,
         onSubmit: () => {
             console.log(values);
-            axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup", values)
-                .then(msg => {
-                    console.log(msg);
+            axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin", values)
+                .then(res => {
+                    // localStorage.setItem("token", JSON.stringify(res.data.token));
+                    setToken(res.data.token);
+                    localStorage.setItem("token", JSON.stringify(res.data.token));
                     navigate('/');
+                    
                 })
                 .catch(error => setApiError(error?.response?.data?.message))
         }

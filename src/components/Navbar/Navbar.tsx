@@ -5,7 +5,7 @@ import { userContext } from '../../Context/UserContext';
 
 
 function Navbar() {
-  const {token}=useContext(userContext);
+  const {token, setToken}=useContext(userContext);
   return(
     <>
     
@@ -69,13 +69,27 @@ function Navbar() {
   </div>
   </div>
 </nav> */}
-
+        
         <ul>
-          <li><Link to="/">Home</Link></li>
-          {token && <>
+          {token ? 
+          <>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/cart">Cart</Link></li>
+            <li><Link to="/products">Products</Link></li>
+            <li><Link to="/categories">Categories</Link></li>
+            <li><Link to="/signin"><button onClick={()=>{
+              localStorage.removeItem("token");
+              setToken(null);
+            }}>Logout</button></Link></li>
+          </>: 
+          <>
             <li><Link to="/signin">Signin</Link></li>
             <li><Link to="/signup">Signup</Link></li>
-          </>}
+          </> }
+          
+          
+            
+       
           
         </ul>
     </>
