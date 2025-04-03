@@ -40,9 +40,10 @@ function Cart() {
     return (
         <>
             <div className=" grid grid-cols-3 gap-2">
-                {productCart ? productCart.map((p) => (
+                {productCart.length > 0? productCart.map((p,index) => (
 
-                    <Card id={p.id} title={p.title}  price={p.price} img_src={p.image} rating={p.rating} />
+                    <Card index={index} id={p.id} title={p.title}  price={p.price} img_src={p.image} rating={p.rating} count={p.count}
+                          setProductCart={setProductCart} />
 
                     // </Card>
                 )) : <AlertBox> {apiError} </AlertBox>}

@@ -7,37 +7,65 @@ import {userContext} from '../../Context/UserContext.tsx';
 // import styles from './Card.module.css';
 
 type Card = {
+    index?: number;
     id: number;
     title: string;
     price: number;
     rating: number;
     img_src: string;
     count?: number;
+    setProductCart?: React.Dispatch<React.SetStateAction<never[]>>;
 }
 
 const Card = (props: Card) => {
     const {token} = useContext(userContext);
+    const inCartPage = props.count != null;
     const addToCartHandler = () => {
-
-            const body = {"productId": props.id}
-            axios.post("https://ecommerce.routemisr.com/api/v1/cart", body, {
-                headers: {
-                    "token": token,
-                }
-            })    //temp
-                .then(()=> alert("Product Added successfully."))
-                .catch((e:any) => {
-                    console.log(e);
+        const body = {"productId": props.id}
+        axios.post("https://ecommerce.routemisr.com/api/v1/cart", body, {
+            headers: {
+                "token": token,
+            }
+        })    //temp
+            .then(() => {
                     alert("Product Added successfully.")
-                })
-
+                }
+            ).catch((e: any) => {
+            console.log(e);
+            alert("Product Added successfully.")
+        })
+    }
+    const addToCartAndRefresh = () => {
+        addToCartHandler();
+        props.setProductCart(prev => {
+            const newCart = [...prev];
+            newCart[props.index].count++
+            return newCart;
+        })
+    }
+    const removeFromCartHandler = () => {
+        axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${props.id}`, {
+            headers: {
+                "token": token
+            }
+        }).then(() => {
+            alert("Product Removed successfully.")
+            props.setProductCart(prev => {
+                const newCart = [...prev];
+                newCart[props.index].count--;
+                return newCart;
+            })
+        })
+            .catch((e: any) => {
+                console.log(e);
+            })
     }
     return (
         // <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
         //      src={officeImg} alt=""/>
         <>
 
-            <div
+            { (!inCartPage || props.count > 0) && <div
                 className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <img className="p-8 rounded-t-lg" src={props.img_src} alt="product image"/>
@@ -77,15 +105,30 @@ const Card = (props: Card) => {
                         <span
                             className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800 ms-3">{props.rating}</span>
                     </div>
-                    <div className="flex items-center justify-between">
-                        <span className="text-3xl font-bold text-gray-900 dark:text-white">${props.price}</span>
+                    <div className={`flex ${inCartPage ? 'flex-col' : 'flex-row items-center justify-between'}`}>
+                        <span className="text-3xl font-bold text-gray-900 dark:text-white ">${props.price}</span>
 
-                        {(token && props.count == null) && <button
-                            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            onClick={addToCartHandler}>Add to cart</button>}
+                        {(token && !inCartPage) ? <button
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                onClick={addToCartHandler}>Add to cart</button> :
+                            <div className="flex w-1/4 mx-auto items-center justify-between text-4xl ">
+                                <button type="button"
+                                        className="text-green-700 hover:text-green-400   font-medium rounded-lg text-center dark:hover:text-green "
+                                        onClick={addToCartAndRefresh}>+
+                                </button>
+                                <span
+                                    className="block font-bold text-3xl text-gray-900 dark:text-white ">{props.count}</span>
+                                <button type="button"
+                                        className=" text-red-700 hover:text-red-400   font-medium rounded-lg text-center dark:hover:text-green"
+                                        onClick={removeFromCartHandler}
+                                >-
+                                </button>
+                            </div>
+
+                        }
                     </div>
                 </div>
-            </div>
+            </div> }
 
             {/* <a href="#"
                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
@@ -97,7 +140,8 @@ const Card = (props: Card) => {
                             <img src={props.img_src} alt="" />
                     <Button>Add to Cart</Button>
                 </div>
-            </a> */}
+            </a> */
+            }
         </>
     );
 }
