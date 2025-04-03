@@ -18,7 +18,7 @@ const Cards = () => {
             <div className=" grid grid-cols-3 gap-2">
                 {products ? products.map((p) => (
                     
-                        <Card title={p.title} img_src={p.images[3]} rating={p.ratingsAverage} price={p.price}/>
+                        <Card id={p.id} title={p.title} img_src={p.images[3]} rating={p.ratingsAverage} price={p.price}/>
                             
                         // </Card>
                 )) : <AlertBox> {apiError} </AlertBox>}

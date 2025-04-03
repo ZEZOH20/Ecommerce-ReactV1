@@ -16,7 +16,7 @@ function Signin() {
     const [apiError, setApiError] = useState(null);
     const validationSchema = Yup.object({
         email: Yup.string().required("Email is required").email("Invalid email"),
-        password: Yup.string().required("Password is required").min(5, "Password must be at least 5 characters").max(10, "Password is too long"),
+        password: Yup.string().required("Password is required").min(5, "Password must be at least 5 characters").max(20, "Password is too long"),
 
     })
 
