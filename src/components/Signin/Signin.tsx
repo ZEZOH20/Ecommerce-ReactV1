@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import {useFormik} from "formik";
 import * as Yup from "yup"
 import axios from "axios"
@@ -7,10 +7,14 @@ import Input from '../utilities/Input/Input';
 import Button from '../utilities/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { userContext } from '../../Context/UserContext';
-
+import ClipLoader from 'react-spinners/ClipLoader';
+import { RotatingLines} from 'react-loader-spinner';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { FaSpinner } from 'react-icons/fa';
 
 
 function Signin() {
+    const [loading, setLoading]=useState(false);
     const {token, setToken} = useContext(userContext);
     const navigate=useNavigate();
     const [apiError, setApiError] = useState(null);
@@ -28,16 +32,25 @@ function Signin() {
         validationSchema,
         onSubmit: () => {
             console.log(values);
+            setLoading(true);
             axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin", values)
                 .then(res => {
+                    
                     // localStorage.setItem("token", JSON.stringify(res.data.token));
                     setToken(res.data.token);
                     localStorage.setItem("token", JSON.stringify(res.data.token));
                     navigate('/');
-                    
+                    setLoading(false);
                 })
-                .catch(error => setApiError(error?.response?.data?.message))
+                .catch(error => {
+                    setApiError(error?.response?.data?.message);
+                    setLoading(false);
+
+                })
+                
         }
+        
+
     });
 
     return (
@@ -87,7 +100,7 @@ function Signin() {
                         </div>}
 
 
-                    <Button>Login</Button>
+                    <Button> {loading ? 'Loading' :"Login"}</Button>
 
                 </form>
             </div>
