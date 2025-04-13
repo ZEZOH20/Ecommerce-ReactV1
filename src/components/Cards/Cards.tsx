@@ -2,10 +2,13 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Card from "../Card/Card.tsx";
 import { useFetchProducts } from "../../Hooks/ProductsFetchQuery.tsx";
+import { useGet } from "../../Hooks/GetHook.tsx";
 
 function Cards (){
+    const url='https://ecommerce.routemisr.com/api/v1/products/';
+
+    const {data, isFetching, isLoading, error}=useGet(url);
     
-    const {data, isFetching, isLoading, error}=useFetchProducts();
     const new_data=data?.data?.data || [];
     // console.log("new_data: ",new_data);
     return (

@@ -18,6 +18,7 @@ import Products from './components/Products/Products.tsx';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProductDetails from './components/ProductDetails/productDetails.tsx';
+import Cart from './components/Cart/Cart.tsx';
 
 const queryclient= new QueryClient();
 
@@ -30,7 +31,7 @@ function App() {
                 {index: true, element: <ProtectedRoute><Home/></ProtectedRoute>},
                 {path: '/signin', element: <Signin/>},
                 {path: '/signup', element: <Signup/>},
-                // {path: '/cart', element: <ProtectedRoute><Cart/></ProtectedRoute>},
+                {path: '/cart', element: <ProtectedRoute><Cart/></ProtectedRoute>},
                 {path: '/Products', element: <ProtectedRoute><Products/></ProtectedRoute>},
                 {path: '/productDetails/:id', element: <ProtectedRoute><ProductDetails/></ProtectedRoute>},
                 {path: '/Categories', element: <ProtectedRoute><Categories/></ProtectedRoute>},
