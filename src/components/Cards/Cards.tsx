@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import AlertBox from "../utilities/AlertBox/AlertBox.tsx";
 import Card from "../Card/Card.tsx";
 
 const Cards = () => {
@@ -21,7 +20,8 @@ const Cards = () => {
                         <Card id={p.id} title={p.title} img_src={p.images[3]} rating={p.ratingsAverage} price={p.price}/>
                             
                         // </Card>
-                )) : <AlertBox> {apiError} </AlertBox>}
+                )) : <div className="alert_box"> {apiError}</div> }
+                
             </div>
         </>);
 }

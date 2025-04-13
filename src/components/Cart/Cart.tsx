@@ -3,7 +3,7 @@ import {userContext} from "../../Context/UserContext.tsx";
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 import Card from "../Card/Card.tsx";
-import AlertBox from "../utilities/AlertBox/AlertBox.tsx";
+
 
 // import styles from './Cart.module.css';
 
@@ -45,7 +45,7 @@ function Cart() {
                     <Card id={p.id} title={p.title}  price={p.price} img_src={p.image} rating={p.rating} />
 
                     // </Card>
-                )) : <AlertBox> {apiError} </AlertBox>}
+                )) : <div className="alert_box"></div> }
             </div>
         </>
     )

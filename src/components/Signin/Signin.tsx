@@ -2,9 +2,7 @@ import React, {useState, useContext, useEffect} from 'react'
 import {useFormik} from "formik";
 import * as Yup from "yup"
 import axios from "axios"
-import Label from '../utilities/Label/Label';
-import Input from '../utilities/Input/Input';
-import Button from '../utilities/Button/Button';
+
 import { useNavigate } from 'react-router-dom';
 import { userContext } from '../../Context/UserContext';
 import ClipLoader from 'react-spinners/ClipLoader';
@@ -61,46 +59,47 @@ function Signin() {
             <div className="p-5 mt-10 max-w-xl mx-auto">
                 {apiError &&
                     <div
-                        className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                        className="alert_box"
                         role="alert">
                         {apiError}
                     </div>}
                 <h2 className=" text-4xl text-blue-600 font-bold mb-10">Login</h2>
                 <form onSubmit={handleSubmit}>
 
-
+                                    
                     <div className="relative z-0 w-full mb-5 group">
-                        <Input type="email" name="email" value={values.email} onChange={handleChange}
-                               onBlur={handleBlur} id="floating_email"></Input>
-                        
-                        <Label htmlFor="floating_email">Email address</Label>
+                        <input type="email" name="email" value={values.email} onChange={handleChange}
+                               onBlur={handleBlur} id="floating_email" className="floating_input peer" placeholder=" "  />
+                    
+                        <label htmlFor="floating_email" className="floating_label">Email address</label>
                         
                     </div>
+                    
 
                     {errors.email && touched.email &&
                         <div
-                            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            className="alert_box"
                             role="alert">
                             {errors.email}
                         </div>}
 
 
                     <div className="relative z-0 w-full mb-5 group">
-                        <Input type="password" name="password" value={values.password} onChange={handleChange}
-                               onBlur={handleBlur} id="floating_password"></Input>
+                        <input type="password" name="password" value={values.password} onChange={handleChange}
+                               onBlur={handleBlur} id="floating_password" className="floating_input peer" placeholder=""></input>
                         
-                        <Label htmlFor="floating_password">Password</Label>
+                        <label htmlFor="floating_password" className="floating_label">Password</label>
                     </div>
 
                     {errors.password && touched.password &&
                         <div
-                            className="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            className="alert_box"
                             role="alert">
                             {errors.password}
                         </div>}
 
-
-                    <Button> {loading ? 'Loading' :"Login"}</Button>
+                    <button type="submit" className="login_button">{loading ? 'Loading' :"Login"}</button>
+                    
 
                 </form>
             </div>

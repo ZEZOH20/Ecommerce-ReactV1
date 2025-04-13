@@ -2,10 +2,7 @@ import React, {useState} from 'react'
 import { useFormik } from "formik";
 import * as Yup from "yup"
 import axios from "axios"
-import AlertBox from '../utilities/AlertBox/AlertBox';
-import Input from '../utilities/Input/Input';
-import Label from "../utilities/Label/Label.tsx";
-import Button from '../utilities/Button/Button.tsx';
+
 import { useNavigate } from 'react-router-dom';
 
 // const navigate=useNavigate();
@@ -56,52 +53,53 @@ function Signup(){
         </div>}
       <h2 className=" text-4xl text-blue-600 font-bold mb-10">Register</h2>
       <form onSubmit={handleSubmit}>
-        {/* <Label>Name</Label> */}
+        {/* <Label className="floating_label">Name</Label> */}
         <div className="relative z-0 w-full mb-5 group">
-            <Input type="text" name="name" value={values.name} id="floating_name" onChange={handleChange} onBlur={handleBlur}/>
-            <Label htmlFor="floating_name">Name</Label>
+            <input className="floating_input peer" placeholder="" type="text" name="name" value={values.name} id="floating_name" onChange={handleChange} onBlur={handleBlur}/>
+            <label className="floating_label"  htmlFor="floating_name">Name</label> 
         </div>
 
         {errors.name && touched.name &&
-        <AlertBox>{errors.name}</AlertBox>}
+        <div role="alert" className="alert_box">{errors.name}</div>}
+        
         
 
         <div className="relative z-0 w-full mb-5 group">
-          <Input type="tel" name="phone" value={values.phone} id="floating_phone" onChange={handleChange} onBlur={handleBlur}/>
-          <Label htmlFor="floating_phone">Phone</Label>
+          <input className="floating_input peer" placeholder="" type="tel" name="phone" value={values.phone} id="floating_phone" onChange={handleChange} onBlur={handleBlur}/>
+          <label className="floating_label"  htmlFor="floating_phone">Phone</label> 
         </div>
 
         {errors.phone &&  touched.phone &&
-        <AlertBox>{errors.phone}</AlertBox>}
-        
+        <div role="alert" className="alert_box">{errors.phone}</div>}
+      
 
         <div className="relative z-0 w-full mb-5 group">
-          <Input type="email" name="email" value={values.email} id="floating_email" onChange={handleChange} onBlur={handleBlur}/>
-          <Label htmlFor="floating_email">Email</Label>
+          <input className="floating_input peer" placeholder="" type="email" name="email" value={values.email} id="floating_email" onChange={handleChange} onBlur={handleBlur}/>
+          <label className="floating_label"  htmlFor="floating_email">Email</label> 
         </div>
 
         {errors.email && touched.email &&
-        <AlertBox>{errors.email}</AlertBox>}
-
+        <div role="alert" className="alert_box">{errors.email}</div>}
 
         <div className="relative z-0 w-full mb-5 group">
-          <Input type="password" name="password" value={values.password} id="floating_password" onChange={handleChange} onBlur={handleBlur}/>
-          <Label htmlFor="floating_password">Password</Label> 
+          <input className="floating_input peer" placeholder="" type="password" name="password" value={values.password} id="floating_password" onChange={handleChange} onBlur={handleBlur}/>
+          <label className="floating_label"  htmlFor="floating_password">Password</label>  
         </div>
 
         {errors.password && touched.password &&
-        <AlertBox>{errors.password}</AlertBox>}
+        <div role="alert" className="alert_box">{errors.password}</div>}
 
 
         <div className="relative z-0 w-full mb-5 group">
-          <Input type="password" name="rePassword" value={values.rePassword} id="floating_rePassword" onChange={handleChange} onBlur={handleBlur}/>
-          <Label htmlFor="floating_rePassword">rePassword</Label> 
+          <input className="floating_input peer" placeholder="" type="password" name="rePassword" value={values.rePassword} id="floating_rePassword" onChange={handleChange} onBlur={handleBlur}/>
+          <label className="floating_label"  htmlFor="floating_rePassword">rePassword</label>  
         </div>
         
         {errors.rePassword && touched.rePassword &&
-        <AlertBox>{errors.rePassword}</AlertBox>}
+        <div role="alert" className="alert_box">{errors.rePassword}</div>}
         
-        <Button type="submit">Submit</Button>
+        <button type="submit" className="signup_button">Submit</button>
+        
         
         {/* <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> */}
 
