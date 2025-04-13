@@ -11,7 +11,7 @@ import Layout from './components/Layout/Layout.tsx';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Cards from "./components/Cards/Cards.tsx";
+
 import UserContext from './Context/UserContext.tsx';
 import Categories from './components/Categories/Categories.tsx';
 import Products from './components/Products/Products.tsx';

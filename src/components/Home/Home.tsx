@@ -1,6 +1,7 @@
 import React from 'react';
-import Cards from '../Cards/Cards';
+
 import Card from '../Card/Card';
+import Cards from '../Cards/Cards';
 // import styles from './Home.module.css';
 
 function Home( {children} ) {
