@@ -3,12 +3,23 @@ import {userContext} from "../../Context/UserContext.tsx";
 import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 import Card from "../Card/Card.tsx";
+import { useGet } from '../../Hooks/GetHook.tsx';
 
 
 // import styles from './Cart.module.css';
 function Cart(){
     const url=`https://ecommerce.routemisr.com/api/v1/cart`;
-    const {token} = useContext(userContext);
+    let {token} = useContext(userContext);
+    token = token.slice(1, -1);
+    console.log("token",token)
+    const headers={"token": token}
+    console.log("headers", headers)
+    let {data, isLoading, isFetching, error}=useGet(url,  headers);
+    console.log(data?.data.data.products);
+    
+    return(<>
+      {data?.data.data.title}
+    </>)
 }
 // function Cart() {
 //     const {token} = useContext(userContext);
