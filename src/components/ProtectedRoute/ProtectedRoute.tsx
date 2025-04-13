@@ -7,11 +7,12 @@ function ProtectedRoute(props) {
 
   const {token}=useContext(userContext);
 
-    if(token){
-      return props.children;
-    }else{
-      return <Navigate to={'/signin'}/>
-    }
+    return token? props.children: <Navigate to={'/signin'}/>
+    // if(token){
+    //   return ;
+    // }else{
+    //   return 
+    // }
     
         //  {return token ? props.children : }
     

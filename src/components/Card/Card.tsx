@@ -4,6 +4,7 @@ import Button from "../utilities/Button/Button.tsx";
 import axios from "axios";
 
 import {userContext} from '../../Context/UserContext.tsx';
+import { Link } from 'react-router-dom';
 // import styles from './Card.module.css';
 
 type Card = {
@@ -32,6 +33,7 @@ const Card = (props: Card) => {
                 })
 
     }
+    
     return (
         // <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
         //      src={officeImg} alt=""/>
@@ -39,6 +41,7 @@ const Card = (props: Card) => {
             
 
 <div className="w-full md:w-1/2 lg:w-1/3 p-2 ">
+<Link to={`/productdetails/${props.id}`}>
     <div className="card shadow-md px-4 py-4 rounded-md ">
         <img className="w-full" src="" alt=""/>
         
@@ -59,7 +62,10 @@ const Card = (props: Card) => {
         
 
     </div>
+    </Link>
 </div>
+
+
 
 
 
