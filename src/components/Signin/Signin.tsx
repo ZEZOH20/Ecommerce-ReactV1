@@ -56,7 +56,7 @@ function Signin() {
         <>
 
 
-            <div className="p-5 mt-10 max-w-xl mx-auto">
+            <div className="p-5 mt-10 mb-6 max-w-xl mx-auto">
                 {apiError &&
                     <div
                         className="alert_box"

@@ -16,10 +16,13 @@ import UserContext from './Context/UserContext.tsx';
 import Categories from './components/Categories/Categories.tsx';
 import Products from './components/Products/Products.tsx';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-
+const queryclient= new QueryClient();
 
 function App() {
+    
+
     const router = createBrowserRouter([
         {
             path: '', element: <Layout/>, children: [
@@ -35,10 +38,14 @@ function App() {
 
     ])
     return (
-        <> 
+        <>
+        <QueryClientProvider client={queryclient}>
+            {/* <p>Hello world</p> */}
             <UserContext>
                 <RouterProvider router={router}/>
             </UserContext>
+        </QueryClientProvider>
+            
              
              {/* <p>Hello</p> */}
             {/* <Signup/> */}
