@@ -1,6 +1,5 @@
 import React, { createContext, useState, ReactNode } from 'react'
 
-
 export const modeContext= createContext({});
 
 export default function UserContext({children}) {

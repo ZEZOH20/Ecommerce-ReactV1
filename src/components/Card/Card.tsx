@@ -5,6 +5,8 @@ import axios from "axios";
 
 import {userContext} from '../../Context/UserContext.tsx';
 import { Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { usePost } from '../../Hooks/PostHook.tsx';
 // import styles from './Card.module.css';
 
 type Card = {
@@ -16,8 +18,34 @@ type Card = {
     count?: number;
 }
 
+
+
 const Card = (props: Card) => {
     const {token} = useContext(userContext);
+    const { mutate, isSuccess, isError, error } = usePost(
+        'https://ecommerce.routemisr.com/api/v1/cart',token,props.id);
+        
+    //     {
+    //       onSuccess: () => toast.success("Product added successfully!"),
+    //       onError: () => toast.error("Failed to add product."),
+    //     }
+    //   );
+    function addToCart(){
+        
+            mutate(undefined, {
+              onSuccess: (data) => {
+                console.log("✅ Response data:", data);
+                // You can now use the response however you want
+              },
+              onError: (err) => {
+                console.error("❌ Error adding to cart:", err);
+              },
+            });
+          
+         
+    }
+const notify = () => toast('Here is your toast.');
+   
     const addToCartHandler = () => {
 
             const body = {"productId": props.id}
@@ -41,14 +69,15 @@ const Card = (props: Card) => {
             
 
 <div className="w-full md:w-1/2 lg:w-1/3 p-2 ">
+<Toaster/>
 <Link to={`/productdetails/${props.id}`}>
     <div className="card shadow-md px-4 py-4 rounded-md ">
-        <img className="w-full" src="" alt=""/>
+        <img className="w-full" src={props.img_src} alt=""/>
         
-            <h3 className="text-xl font-normal text-blue-600">Woman's Fashion</h3>
-            <h3 className="text-3xl font-normal ">Woman Shawl</h3>
+            <h3 className="text-xl font-normal text-blue-600">{props.title}</h3>
+            <h3 className="text-3xl font-normal ">{props.title}</h3>
         <div className="rating flex justify-between mt-3">
-            <h3 className="text-xl ">191 EGP</h3>
+            <h3 className="text-xl ">{props.price} EGP</h3>
             
             <div className="rating flex">
                 <p className="text-blue-600 bg-blue-100 p-1 rounded-md ">4.8</p>
@@ -58,11 +87,12 @@ const Card = (props: Card) => {
                 </svg>
             </div>  
         </div>
-        {(token && props.count == null) && <button className="text-white text-lg px-4 py-2 rounded-lg bg-blue-600 w-full mt-3 hover:shadow-md">Add to cart</button>}
         
 
     </div>
     </Link>
+    {(token && props.count == null) && <button onClick={()=>addToCart()} className="text-white text-lg px-4 py-2 rounded-lg bg-blue-600 w-full mt-3 hover:shadow-md">Add to cart</button>}
+        
 </div>
 
 

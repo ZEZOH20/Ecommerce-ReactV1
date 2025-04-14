@@ -7,7 +7,7 @@ import { useGet } from "../../Hooks/GetHook.tsx";
 function Cards (){
     const url='https://ecommerce.routemisr.com/api/v1/products/';
 
-    const {data, isFetching, isLoading, error}=useGet(url);
+    const {data, isFetching, isLoading, error}=useGet("Products",url);
     
     const new_data=data?.data?.data || [];
     // console.log("new_data: ",new_data);
