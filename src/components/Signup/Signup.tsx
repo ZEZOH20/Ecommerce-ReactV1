@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 // const navigate=useNavigate();
 function Signup(){
   const navigate= useNavigate();
+  const [loading, setLoading]=useState(false);
   const [apiError, setApiError] = useState(null);
   const validationSchema=Yup.object({
     name: Yup.string().required("Name is required").min(3,"Name must be at least 3 characters").max(10,"Name is too long"),
@@ -27,6 +28,7 @@ function Signup(){
     },
     validationSchema,
     onSubmit:()=>{
+      setLoading(true);
       console.log(values);
       axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup",values)
       .then(data=>{
@@ -38,7 +40,10 @@ function Signup(){
         navigate('/signin');
       })
       .catch(error => setApiError(error?.response?.data?.message))
-    }
+      .finally(()=>{
+        setLoading(false);
+      })
+  }
   });
 
   return (
@@ -98,7 +103,7 @@ function Signup(){
         {errors.rePassword && touched.rePassword &&
         <div role="alert" className="alert_box">{errors.rePassword}</div>}
         
-        <button type="submit" className="signup_button">Submit</button>
+        <button type="submit" className="signup_button" disabled={loading}>Submit</button>
         
         
         {/* <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> */}

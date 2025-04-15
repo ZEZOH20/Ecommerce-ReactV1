@@ -3,11 +3,11 @@ import { userContext } from '../../Context/UserContext';
 import { Navigate } from 'react-router-dom';
 // import styles from './ProtectedRoute.module.css';
 
-function ProtectedRoute(props) {
+function ProtectedRoute({children }:{children: React.ReactNode}) {
 
   const {token}=useContext(userContext);
 
-    return token? props.children: <Navigate to={'/signin'}/>
+    return token? <>{children}</>: <Navigate to={'/signin'}/>
     // if(token){
     //   return ;
     // }else{

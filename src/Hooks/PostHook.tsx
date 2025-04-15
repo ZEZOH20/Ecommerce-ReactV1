@@ -12,7 +12,7 @@ import axios from 'axios';
 }
 
 
-export const usePost = (url: string ,token: string, productId:string, options = {}) => {
+export const usePost = (url: string ,token: string, productId?:string, options = {}) => {
   token=token.slice(1,-1);
   let headers={token};
   let body={ productId };

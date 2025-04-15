@@ -9,13 +9,16 @@ function Cards (){
 
     const {data, isFetching, isLoading, error}=useGet("Products",url);
     
+    
     const new_data=data?.data?.data || [];
+    
     // console.log("new_data: ",new_data);
     return (
         <>
             <div className="parent flex flex-wrap justify-evenly ">
                 {new_data ? new_data.map(p=>{
-                    return  <Card id={p.id} title={p.title} img_src={p.images[3]} rating={p.ratingsAverage} price={p.price}/>
+                    // console.log('new data: ',new_data)
+                    return  <Card id={p.id} title={p.title} img_src={p.images[3]} rating={p.ratingsAverage} price={p.price} category={p.category.name}/>
                 
                 }) :  <div className="alert_box"> {error?.message || "Something went wrong"}</div> }
                 

@@ -98,7 +98,7 @@ function Signin() {
                             {errors.password}
                         </div>}
 
-                    <button type="submit" className="login_button">{loading ? 'Loading' :"Login"}</button>
+                    <button type="submit" className="login_button" disabled={loading}>{loading ? 'Loading' :"Login"}</button>
                     
 
                 </form>

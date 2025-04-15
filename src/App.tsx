@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer.tsx';
 import Page404 from './components/Page404/Page404.tsx';
 import Home from './components/Home/Home.tsx';
 import Layout from './components/Layout/Layout.tsx';
-
+import { Toaster } from 'react-hot-toast';
 // import React from "react";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import React, {useEffect, useState} from "react";
@@ -42,17 +42,14 @@ function App() {
     ])
     return (
         <>
-        <QueryClientProvider client={queryclient}>
-            {/* <p>Hello world</p> */}
-            <UserContext>
-                <RouterProvider router={router}/>
-            </UserContext>
-        </QueryClientProvider>
-            
-             
-             {/* <p>Hello</p> */}
-            {/* <Signup/> */}
-            {/*<Cards/>*/}
+        
+            <QueryClientProvider client={queryclient}>
+                <UserContext>
+                    <RouterProvider router={router}/>
+                </UserContext>
+            </QueryClientProvider>
+            <Toaster position="top-center" reverseOrder={false} />
+                
         </>
     )
 }
