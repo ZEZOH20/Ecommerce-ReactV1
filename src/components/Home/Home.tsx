@@ -6,9 +6,14 @@ import Slider from 'react-slick';
 import { useGet } from '../../Hooks/GetHook';
 // import styles from './Home.module.css';
 
-function Home( {children} ) {
+interface cat{
+  _id: string;
+  name: string;
+  image: string;
+}
+function Home() {
   const url='https://ecommerce.routemisr.com/api/v1/categories';
-  const {data, isFetching, isLoading, error}=useGet("Categories",url);
+  const {data, isFetching, isLoading, error}=useGet("Categories",url,'');
     
     
     const new_data=data?.data?.data || [];
@@ -20,13 +25,14 @@ function Home( {children} ) {
     slidesToShow: 1,
     slidesToScroll: 1
   };
+  
   // console.log(children);
   return(
     <>
         {/* slider  */}
         <div className="mx-auto max-w-5xl px-4 py-6">
   <Slider {...settings}>
-    {new_data.map((category) => (
+    {new_data.map((category:cat) => (
       <div key={category._id} className="px-2">
         <img
           src={category.image}
@@ -40,7 +46,7 @@ function Home( {children} ) {
 
         
         <Cards>
-          <Card></Card>
+          
           
         </Cards>
     </>

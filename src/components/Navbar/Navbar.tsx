@@ -13,11 +13,15 @@ function Navbar() {
   return(
     <>
     
-      <nav>
-        
-      </nav>
+      {/* <nav>
+        <ul className="flex gap-2">
+          <li className="text-xl font-semibold text">Home</li>
+          <li>Cart</li>
+          <li>Products</li>
+        </ul>
+      </nav> */}
 
-        
+        <input type="text" />
         {/* <ul>
           {token ? 
           <>
