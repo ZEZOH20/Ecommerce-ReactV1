@@ -1,16 +1,14 @@
 import './App.css'
 import Signup from './components/Signup/Signup.tsx';
 import Signin from './components/Signin/Signin.tsx';
-import Navbar from './components/Navbar/Navbar.tsx';
-import Footer from './components/Footer/Footer.tsx';
+
 import Page404 from './components/Page404/Page404.tsx';
 import Home from './components/Home/Home.tsx';
 import Layout from './components/Layout/Layout.tsx';
 import { Toaster } from 'react-hot-toast';
 // import React from "react";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+
 
 import UserContext from './Context/UserContext.tsx';
 import Categories from './components/Categories/Categories.tsx';
