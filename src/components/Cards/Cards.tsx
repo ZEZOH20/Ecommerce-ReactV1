@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+
 import Card from "../Card/Card.tsx";
 import { useGet } from "../../Hooks/GetHook.tsx";
 
 interface Product {
-    id: number;
+    id: string;
     title: string;
     price: number;
     ratingsAverage: number;
@@ -18,7 +17,7 @@ interface Product {
 function Cards (){
     const url='https://ecommerce.routemisr.com/api/v1/products/';
 
-    const {data, isFetching, isLoading, error}=useGet("Products",url,'');
+    const {data, error}=useGet("Products",url,'');
     
     
     const new_data=data?.data?.data || [];

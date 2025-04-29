@@ -1,12 +1,11 @@
-import React, {useState, useContext, useEffect} from 'react'
+import {useState, useContext} from 'react'
 import {useFormik} from "formik";
 import * as Yup from "yup"
 import axios from "axios"
 
 import { useNavigate } from 'react-router-dom';
 import { userContext } from '../../Context/UserContext';
-import ClipLoader from 'react-spinners/ClipLoader';
-import { RotatingLines} from 'react-loader-spinner';
+
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { FaSpinner } from 'react-icons/fa';
 

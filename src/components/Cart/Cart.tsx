@@ -1,18 +1,28 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import {useContext, useEffect, useRef, useState} from 'react';
 import {userContext} from "../../Context/UserContext.tsx";
-import {useNavigate} from 'react-router-dom';
-import axios from "axios";
-import Card from "../Card/Card.tsx";
+
 import { useGet } from '../../Hooks/GetHook.tsx';
 import { usePut } from '../../Hooks/PutHook.tsx';
 import { useDelete } from '../../Hooks/DeleteHook.tsx';
 import toast from 'react-hot-toast';
 
-
+interface Product{
+  count: number;
+  id: string;
+  price: number;
+  product:{
+    id: string;
+    title: string;
+    imageCover: string;
+    count: number;
+    ratingsAverage: number;
+  }
+}
 function Cart(){
 
   let [cart, setCart]=useState([]);
-  let {token} = useContext(userContext);
+  let usercontext = useContext(userContext);
+  let token = usercontext?.token || '';
  
   const { mutate: increment, error : incrementError } = usePut();
   const { mutate: decrement, error : decrementError } = usePut();
@@ -115,7 +125,7 @@ function Cart(){
           {
             
             cart ? 
-        cart?.map((p)=>{
+        cart?.map((p:Product)=>{
           // console.log(Object.keys(p));
           return(
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">

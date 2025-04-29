@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './Products.module.css';
+// import React from 'react';
+// import styles from './Products.module.css';
 import { useParams } from 'react-router-dom';
 // import { useFetchProductDetails } from '../../Hooks/ProductDetailsHook';
 // import SimpleSlider from '../SimpleSlider/SimpleSlider';

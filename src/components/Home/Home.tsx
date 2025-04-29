@@ -1,6 +1,6 @@
-import React from 'react';
+// import React from 'react';
 
-import Card from '../Card/Card';
+// import Card from '../Card/Card';
 import Cards from '../Cards/Cards';
 import Slider from 'react-slick';
 import { useGet } from '../../Hooks/GetHook';
@@ -13,7 +13,7 @@ interface cat{
 }
 function Home() {
   const url='https://ecommerce.routemisr.com/api/v1/categories';
-  const {data, isFetching, isLoading, error}=useGet("Categories",url,'');
+  const {data}=useGet("Categories",url,'');
     
     
     const new_data=data?.data?.data || [];

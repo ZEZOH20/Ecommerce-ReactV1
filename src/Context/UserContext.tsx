@@ -1,16 +1,14 @@
 import React, { createContext, useState, ReactNode } from 'react'
 
-interface inter{
-  children: ReactNode;
-}
-interface state{
-  token: string | null;
-  setToken: React.Dispatch<React.SetStateAction<string | null>>;
-}
-export const userContext= createContext({});
 
-export default function UserContext({children} : inter) {
-  const [token , setToken] = useState(localStorage.getItem("token") || null)
+interface state{
+  token: string;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
+}
+export const userContext= createContext<state>({'fff',()=>{console.log("Hello")}} );
+
+export default function UserContext({children } : {children: ReactNode}) {
+  const [token , setToken] = useState(localStorage.getItem("token") || '')
   return (
     <>
       <userContext.Provider value={{token, setToken}}>

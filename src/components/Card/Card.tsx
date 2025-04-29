@@ -1,15 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
-import officeImg from '../../assets/office.jpg';
-import axios from "axios";
-
+import {useContext, useEffect, useState} from 'react';
 import {userContext} from '../../Context/UserContext.tsx';
 import { Link } from 'react-router-dom';
-import toast ,{Toaster} from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { usePost } from '../../Hooks/PostHook.tsx';
 // import styles from './Card.module.css';
 
 type Card = {
-    id: number;
+    id: string;
     title: string;
     price: number;
     rating: number;
@@ -21,8 +18,9 @@ type Card = {
 
 
 const Card = (props: Card) => {
-    const {token} = useContext(userContext);
-    const { mutate: addToCart, isSuccess, isError, error } = usePost(
+    const { token } = useContext(userContext) ?? { token: 'default' };
+    // const {token} = useContext(userContext);
+    const { mutate: addToCart} = usePost(
         'https://ecommerce.routemisr.com/api/v1/cart',token,props.id);
    
     // console.log('Here',props.category)
@@ -34,10 +32,10 @@ const Card = (props: Card) => {
     function addToCartHandler(){
         
             addToCart(undefined, {
-              onSuccess: (data) => {
+              onSuccess: () => {
                 toast.success("Product Added Successfully to your Cart");
               },
-              onError: (err) => {
+              onError: () => {
                  toast.error("Can not Add product to Cart")
               },
             });

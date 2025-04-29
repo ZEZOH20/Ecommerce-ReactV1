@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import  { useContext } from 'react';
+// import { Link } from 'react-router-dom';
 import { userContext } from '../../Context/UserContext';
 // import styles from './Navbar.module.css';
 
 
 function Navbar() {
-  const {token, setToken}=useContext(userContext);
+  const usercontext=useContext(userContext);
+  // const {token}=usercontext || '';
+  const setToken=usercontext?.setToken;
   function logout(){
       localStorage.removeItem("token");
       setToken(null);
