@@ -33,7 +33,7 @@ function Card(props: CardInterface) {
     addToCart(undefined, {
       onSuccess: () => {
         toast.success("Product Added Successfully to your Cart");
-        
+
       },
       onError: () => {
         toast.error("Can not Add product to Cart");
@@ -43,11 +43,11 @@ function Card(props: CardInterface) {
   // function notify () {
   //     return toast('Here is your toast.');
   // }
-
+  
   return (
     <>
       <div className="w-full md:w-1/2 lg:w-1/3 p-2 ">
-        <Link to={`/productdetails/${props.id}`}>
+        <Link to={`/productDetails/${props.id}`}>
           <div className="card shadow-md px-4 py-4 rounded-md ">
             <img className="w-full" src={props.img_src} alt="" />
 

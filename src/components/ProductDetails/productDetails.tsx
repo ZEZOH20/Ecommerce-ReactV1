@@ -1,15 +1,20 @@
 // import React from 'react';
 // import styles from './Products.module.css';
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 // import SimpleSlider from '../SimpleSlider/SimpleSlider';
 
 import Slider from "react-slick";
-import { PRODUCTS_BASE_URL } from '../../Constants';
+import { CATEGORY_BASE_URL, PRODUCTS_BASE_URL , CART_BASE_URL} from '../../Constants';
 import axios from 'axios';
-import { queryOptions } from '@tanstack/react-query';
-
+import { useContext } from 'react';
+import { userContext } from '../../Context/userContext';
+// import { queryOptions } from '@tanstack/react-query';
+// import { Slider } from 'react-slick';
+  
 function ProductDetails() {
+  const context=useContext(userContext);
   let settings = {
     dots: true,
     infinite: true,
@@ -17,9 +22,13 @@ function ProductDetails() {
     slidesToShow: 1,
     slidesToScroll: 1
   };
-  let {id}= useParams();
-  // console.log(id);
-  const url=`${PRODUCTS_BASE_URL}${id}`;
+
+  
+  const params= useParams();
+  console.log(params);
+  const id=params.id;
+  console.log(id);
+  const url=`${PRODUCTS_BASE_URL}/${id}`;
   function getProductDetails(){
     console.log(url);
     return axios.get(url);
@@ -28,8 +37,49 @@ function ProductDetails() {
     queryKey:[`${id}`],
     queryFn:getProductDetails
   })
+  const { mutate: addToCart } = useMutation(
+    {
+      mutationFn: postdata,
+      // mutationKey: [""]
+    }
+  )
+  function postdata(){
+    let token = context.token;
+    let id= data?.data?.data?._id;
+    token=token.slice(1,-1);
+    console.log(token);
+    console.log(id);
+    return axios.post("https://ecommerce.routemisr.com/api/v1/cart", 
+      { productId: id },{
+      headers:{
+        token
+      } 
+    })
+  }
+  
+  // usePost(`${CART_BASE_URL}`, token, props.id);
+  function addToCartHandler() {
+    addToCart(undefined, {
+      onSuccess: () => {
+        toast.success("Product Added Successfully to your Cart");
+
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  }
+  // let {data, isLoading, isFetching, error}= useQuery({
+  //   queryKey:[`${id}`],
+  //   queryFn:getProductDetails
+  // })
+  // function  getCategoryProducts(){
+  //   const arr=await axios.get(`${CATEGORY_BASE_URL}/${data?.data?.data?.category?._id}`)
+  //   return arr;
+  // }
   // let {data, isLoading, isFetching, error}= useFetchProductDetails(id);
-  data=data?.data.data;
+  
+  data= data?.data?.data;
   console.log(data);
   // console.log(data?.data.data.title);
   return(
@@ -37,6 +87,7 @@ function ProductDetails() {
     
         {isFetching || isLoading ? <p>Loading</p>
         :
+        
         <div className="card w-[80%] mx-auto flex mt-20">
           <div className="w-1/4">
           <Slider {...settings}>{
@@ -58,7 +109,8 @@ function ProductDetails() {
         <img className="w-full" src={data?.img_src} alt=""/>
         
             {/* <h3 className="text-xl font-normal text-blue-600">{data?.category}</h3> */}
-            <h3 className="text-3xl font-normal ">{data?.title}</h3>
+            <h3 className="text-3xl font-normal text-blue-600">{data?.title}</h3>
+            <h3 className="text-2xl font-normal ">{data?.description}</h3>
         <div className="rating flex justify-between mt-3">
             <h3 className="text-xl text-gray">{data?.price} EGP</h3>
             
@@ -70,12 +122,28 @@ function ProductDetails() {
                 </svg>
             </div>  
         </div>
-        
-
+        <button
+            onClick={() => addToCartHandler()}
+            className="text-white text-lg px-4 py-2 rounded-lg bg-blue-600 w-full mt-3 hover:shadow-md"
+          >
+            Add to cart
+        </button>
         </div>
-      </div> }
+      </div>
+      //   {/* <Slider {...settings}>{
+      //       data?.images.map(img=>{
+      //         return(
+      //           <div>
+      //             <h3><img className="w-full" src={img} alt="df" /></h3>
+      //           </div>
+      //         ) 
+      //       })
+      //       }
+            
+      //     </Slider> */}
+      //  }
 
-        {/* <Slider {...settings}>
+        /* <Slider {...settings}>
       
       <div>
         <h3>2</h3>

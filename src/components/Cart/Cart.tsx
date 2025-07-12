@@ -63,15 +63,14 @@ function Cart() {
   // useGet("", CART_BASE_URL, token);
 
   const columns=[ "Image", "Product", "Qty", "Price", "Action"];
+      if(isLoading || isFetching){
+        return <h2 className="text-center font-bold txet-7xl text-blue-600">
+          Loading ...
+      </h2>
+      } {console.log(data);}
+      if(data?.data?.data?.products.length===0) return <p className="text-4xl font-bold text-blue-600 text-center mt-30 mb-30">Empty Cart</p>
   return (
     <>
-      {isLoading || isFetching ? (
-        <h2 className="text-center font-bold txet-7xl text-blue-600">
-          Loading ...
-        </h2>
-      ) : (
-        <p></p>
-      )}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-slate-600 dark:bg-gray-700 dark:text-gray-400">
@@ -153,11 +152,7 @@ function Cart() {
                   </tr>
                 );
               })
-            ) : (
-              <h2 className="mt-30 text-5xl font-semibold text-blue-600">
-                Cart is Empty
-              </h2>
-            )}
+            ) :null}
           </tbody>
         </table>
       </div>
