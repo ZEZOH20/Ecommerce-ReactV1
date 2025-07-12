@@ -1,14 +1,18 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { userContext } from "../../Context/UserContext.tsx";
+import { userContext } from "../../Context/userContext.tsx";
 
 import toast from "react-hot-toast";
 import { Product } from "../../Interfaces/ProductInterface.ts";
 import axios from "axios";
 import { CART_BASE_URL } from "../../Constants.ts";
 import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+// import { CART_BASE_URL } from "../../Constants.ts";
 // import { Query } from '@tanstack/react-query';
 
 function Cart() {
+  // const id=useParams;
+  // console.log(id);
   //state
   let [cart, setCart] = useState([]);
 
@@ -16,19 +20,49 @@ function Cart() {
   let token = usercontext?.token || "";
 
   //functions
+  async function getdata(){
+    console.log(token);
+    const data= await axios.get(`${CART_BASE_URL}`,{
+      headers:{token}})
+      console.log(data);
+    return data;
+    
+  }
 
-  // token = token.slice(1, -1);
+  token = token.slice(1, -1);
 
   // const headers={"token": token}
+  function incrementHandler(id:string , count: number){
+    axios.put(`${CART_BASE_URL}/${id}`,{count: count+1} ,{
+      headers:{
+      token
+      }
+    })
+  }
 
-  let { data, isLoading, isFetching, error: get_error } = useQuery();
-  useGet("", CART_BASE_URL, token);
+  function decrementHandler(id: string, count: number){
+    axios.put(`${CART_BASE_URL}/${id}`,{count: count-1} ,{
+      headers:{
+      token
+      }
+    })
+  }
 
-  //sideEffects
-  useEffect(() => {
-    setCart(data?.data?.data?.products);
-  }, [data]);
+  function deleteHandler(id:string){
+    axios.delete(`${CART_BASE_URL}/${id}`,{
+      headers:{
+      token
+      }
+    })
+  }
+  let { data, isLoading, isFetching, error: get_error } = useQuery({
+    queryKey: ["Cart", ] ,
+    queryFn:getdata
+    
+  });
+  // useGet("", CART_BASE_URL, token);
 
+  const columns=[ "Image", "Product", "Qty", "Price", "Action"];
   return (
     <>
       {isLoading || isFetching ? (
@@ -36,32 +70,24 @@ function Cart() {
           Loading ...
         </h2>
       ) : (
-        <p>Hello World</p>
+        <p></p>
       )}
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-slate-600 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th scope="col" className="py-3 px-15 bg-black text-center">
-                Image
+              {
+              columns.map(column=>{
+                return <th scope="col" className="py-3 px-15  text-center text-white">
+                {column}
               </th>
-              <th scope="col" className="py-3 px-10 bg-red-500 text-center">
-                Product
-              </th>
-              <th scope="col" className="py-3 px-18 bg-blue-600 text-center">
-                Qty
-              </th>
-              <th scope="col" className=" py-3 px-7 bg-gray-800 text-center">
-                Price
-              </th>
-              <th scope="col" className="px-6 py-3 bg-gray-100 text-center">
-                Action
-              </th>
+              })
+            }
             </tr>
           </thead>
           <tbody>
-            {cart ? (
-              cart?.map((p: Product) => {
+            {data ? (
+              data?.data?.data?.products?.map((p: Product) => {
                 // console.log(Object.keys(p));
                 return (
                   <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -118,7 +144,7 @@ function Cart() {
                     {/* Remove Button  */}
                     <td className="px-6 py-4 text-center">
                       <button
-                        onClick={() => delete_handler(p.product.id)}
+                        onClick={() => deleteHandler(p.product.id)}
                         className="cursor-pointer font-medium text-red-600 dark:text-red-500"
                       >
                         Remove

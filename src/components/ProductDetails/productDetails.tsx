@@ -1,11 +1,13 @@
 // import React from 'react';
 // import styles from './Products.module.css';
 import { useParams } from 'react-router-dom';
-// import { useFetchProductDetails } from '../../Hooks/ProductDetailsHook';
+import { useQuery } from '@tanstack/react-query';
 // import SimpleSlider from '../SimpleSlider/SimpleSlider';
-import { useGet } from '../../Hooks/GetHook';
-import Slider from "react-slick";
 
+import Slider from "react-slick";
+import { PRODUCTS_BASE_URL } from '../../Constants';
+import axios from 'axios';
+import { queryOptions } from '@tanstack/react-query';
 
 function ProductDetails() {
   let settings = {
@@ -17,8 +19,15 @@ function ProductDetails() {
   };
   let {id}= useParams();
   // console.log(id);
-  const url=`https://ecommerce.routemisr.com/api/v1/products/${id}`;
-  let {data, isLoading, isFetching, error}= useGet('',url,'','');
+  const url=`${PRODUCTS_BASE_URL}${id}`;
+  function getProductDetails(){
+    console.log(url);
+    return axios.get(url);
+  }
+  let {data, isLoading, isFetching, error}= useQuery({
+    queryKey:[`${id}`],
+    queryFn:getProductDetails
+  })
   // let {data, isLoading, isFetching, error}= useFetchProductDetails(id);
   data=data?.data.data;
   console.log(data);

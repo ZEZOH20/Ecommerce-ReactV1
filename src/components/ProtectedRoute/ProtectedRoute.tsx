@@ -7,7 +7,7 @@ import { Navigate } from 'react-router-dom';
 function ProtectedRoute({children }:{children: React.ReactNode}) {
 
   const {token}=useContext(userContext);
-
+  // const token='';
     return token? <>{children}</>: <Navigate to={'/signin'}/>
     // if(token){
     //   return ;

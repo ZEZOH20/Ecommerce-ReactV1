@@ -1,44 +1,84 @@
-import  { useContext } from 'react';
-// import { Link } from 'react-router-dom';
-import { userContext } from '../../Context/UserContext';
+import  { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+// import { userContext } from '../../Context/UserContext';
+// import { userContext } from '../../Context/UserContext';
+import { userContext } from '../../Context/userContext';
 // import styles from './Navbar.module.css';
 
 
 function Navbar() {
+  //state
+  const[cartItems, setCartItems]=useState(0);
   const usercontext=useContext(userContext);
-  // const {token}=usercontext || '';
+  const {token}=usercontext || '';
   const setToken=usercontext?.setToken;
   function logout(){
       localStorage.removeItem("token");
-      setToken(null);
+      // setToken(null);
   }
+  const loggedNavbarLinks=[
+    {
+      title:"Home",
+      path:"/"
+    },
+    {
+      title:"Cart",
+      path:"/cart"
+    },
+    {
+      title:"Products",
+      path:"/Products"
+    },
+    {
+      title:"Categories",
+      path:"/categories"
+    }, 
+  ];
+
+  const notLoggednavbarLinks=[
+    {
+      title:"Signin",
+      path:"/signin"
+    }, 
+    {
+      title:"Signup",
+      path:"/signup"
+    }, 
+  ]
   return(
     <>
-    
-      {/* <nav>
-        <ul className="flex gap-2">
-          <li className="text-xl font-semibold text">Home</li>
-          <li>Cart</li>
-          <li>Products</li>
-        </ul>
-      </nav> */}
-
-        <input type="text" />
-        {/* <ul>
+    <header>
+      <nav>
+        <ul className="bg-blue-500 flex justify-center items-center h-15 ">
           {token ? 
           <>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/cart">Cart</Link></li>
-            <li><Link to="/products">Products</Link></li>
-            <li><Link to="/categories">Categories</Link></li>
-            <li><button onClick={logout}>Logout</button></li>
+            {loggedNavbarLinks.map(navbarLink=>{
+              if(navbarLink.title==='Cart'){
+                return <>
+                  
+                  <li className="text-xl font-bold text-white mr-4 relative after:content-[{}] after:absolute after:right-[-12px] after:top-[-5px] after:bg-blue-500 after:rounded-full"><Link to={navbarLink.path}>{navbarLink.title}</Link></li>
+                  {/* <div className="mr-4 absolute ">1</div> */}
+                </>
+                
+              }
+              return <li className="text-xl font-bold text-white mr-4"><Link to={navbarLink.path}>{navbarLink.title}</Link></li>
+            })}
+            <li className="text-xl font-bold text-white mr-4 absolute right-5"><button onClick={logout}>Logout</button></li>
           </>: 
           <>
-            <li><Link to="/signin">Signin</Link></li>
-            <li><Link to="/signup">Signup</Link></li>
+          <ul className="bg-blue-500 flex justify-end items-center h-15 ">
+            {
+              notLoggednavbarLinks.map(link=>{
+                return <li className="text-xl font-bold text-white mr-4"><Link to={link.path}>{link.title}</Link></li>
+              })
+            }
+          </ul>
+            
           </> }
-       
-        </ul> */}
+          </ul>
+      </nav>
+    </header>
+  
     </> 
   )
 };

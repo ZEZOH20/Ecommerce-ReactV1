@@ -4,7 +4,8 @@ import * as Yup from "yup";
 import axios from "axios";
 import { AUTH_BASE_URL } from "../../Constants";
 import { useNavigate } from "react-router-dom";
-import { userContext } from "../../Context/UserContext";
+// import { userContext } from "../../Context/UserContext";
+import {userContext} from "../../Context/userContext"
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { FaSpinner } from 'react-icons/fa';
@@ -34,7 +35,7 @@ function Signin() {
       },
       validationSchema,
       onSubmit: () => {
-        // console.log(values);
+        console.log(values);
         setLoading(true);
         axios
           .post(`${AUTH_BASE_URL}/signin`, values)

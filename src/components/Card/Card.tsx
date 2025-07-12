@@ -1,20 +1,39 @@
-import { useContext, useEffect, useState } from "react";
-import { userContext } from "../../Context/UserContext.tsx";
+import { useContext } from "react";
+import { userContext } from "../../Context/userContext.tsx";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { CardInterface } from "../../Interfaces/ProductInterface.ts";
-import { BASE_URL } from "../../Constants.ts";
+import { BASE_URL, CART_BASE_URL } from "../../Constants.ts";
 // import styles from './Card.module.css';
-
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 function Card(props: CardInterface) {
-  const { token } = useContext(userContext) ?? { token: "default" };
+  let { token } = useContext(userContext) ?? { token: "default" };
   // const {token} = useContext(userContext);
-  const { mutate: addToCart } = usePost(`${BASE_URL}/cart`, token, props.id);
 
+  function postdata(){
+    token=token.slice(1,-1);
+    console.log(token);
+    console.log(props.id);
+    return axios.post(`${CART_BASE_URL}`, 
+      { productId: props.id },{
+      headers:{
+        token
+      } 
+    })
+  }
+  const { mutate: addToCart } = useMutation(
+    {
+      mutationFn: postdata,
+      // mutationKey: [""]
+    }
+  )
+  // usePost(`${CART_BASE_URL}`, token, props.id);
   function addToCartHandler() {
     addToCart(undefined, {
       onSuccess: () => {
         toast.success("Product Added Successfully to your Cart");
+        
       },
       onError: () => {
         toast.error("Can not Add product to Cart");
@@ -35,7 +54,7 @@ function Card(props: CardInterface) {
             <h3 className="text-xl font-normal text-blue-600">
               {props.category}
             </h3>
-            <h3 className="text-3xl font-normal ">{props.title}</h3>
+            <h3 className="text-3xl font-normal ">{props.title.split(' ').slice(0, 2).join(' ')}</h3>
             <div className="rating flex justify-between mt-3">
               <h3 className="text-xl text-gray">{props.price} EGP</h3>
 
