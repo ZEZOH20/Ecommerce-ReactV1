@@ -1,17 +1,16 @@
-import  { useState, useContext } from 'react';
+import  {  useContext } from 'react';
 import { Link } from 'react-router-dom';
 // import { userContext } from '../../Context/UserContext';
 // import { userContext } from '../../Context/UserContext';
-import { userContext } from '../../Context/userContext';
+import { UserContext } from '../../Context/UserContext';
 // import styles from './Navbar.module.css';
 
 
 function Navbar() {
   //state
-  const[cartItems, setCartItems]=useState(0);
-  const usercontext=useContext(userContext);
-  const {token}=usercontext || '';
-  const setToken=usercontext?.setToken;
+  // const[cartItems, setCartItems]=useState(0);
+  // const usercontext=useContext(userContext);
+  const {token}=useContext(UserContext);
   function logout(){
       localStorage.removeItem("token");
       // setToken(null);

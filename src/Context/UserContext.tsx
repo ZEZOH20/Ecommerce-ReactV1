@@ -5,17 +5,21 @@ interface State {
   setToken: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const userContext = createContext<State>({
+export const UserContext = createContext<State>({
   token: "",
-  setToken: () => {}
+  setToken: () => {},
 });
 
-export default function UserContextProvider({ children }: { children: ReactNode }) {
+export default function UserContextProvider({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
-  
+
   return (
-    <userContext.Provider value={{ token, setToken }}>
+    <UserContext.Provider value={{ token, setToken }}>
       {children}
-    </userContext.Provider>
+    </UserContext.Provider>
   );
 }

@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { userContext } from "../../Context/userContext.tsx";
+import { UserContext } from "../../Context/UserContext.tsx";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { CardInterface } from "../../Interfaces/ProductInterface.ts";
-import { BASE_URL, CART_BASE_URL } from "../../Constants.ts";
+import { CART_BASE_URL } from "../../Constants.ts";
 // import styles from './Card.module.css';
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 function Card(props: CardInterface) {
-  let { token } = useContext(userContext) ?? { token: "default" };
+  let { token } = useContext(UserContext) ?? { token: "default" };
   // const {token} = useContext(userContext);
 
   function postdata(){

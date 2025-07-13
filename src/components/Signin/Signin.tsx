@@ -4,16 +4,13 @@ import * as Yup from "yup";
 import axios from "axios";
 import { AUTH_BASE_URL } from "../../Constants";
 import { useNavigate } from "react-router-dom";
-// import { userContext } from "../../Context/UserContext";
-import {userContext} from "../../Context/userContext"
+import { UserContext } from "../../Context/UserContext";
 
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { FaSpinner } from 'react-icons/fa';
 
 function Signin() {
   //state
   const [loading, setLoading] = useState(false);
-  const { token, setToken } = useContext(userContext);
+  const {  setToken } = useContext(UserContext);
   const [apiError, setApiError] = useState(null);
 
   const navigate = useNavigate(); // for programmatic routing

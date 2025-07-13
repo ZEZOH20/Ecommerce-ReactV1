@@ -1,12 +1,12 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { userContext } from "../../Context/userContext.tsx";
-
-import toast from "react-hot-toast";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext.tsx";
+import { useReducer } from 'react';
+// import toast from "react-hot-toast";
 import { Product } from "../../Interfaces/ProductInterface.ts";
 import axios from "axios";
 import { CART_BASE_URL } from "../../Constants.ts";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 // import { CART_BASE_URL } from "../../Constants.ts";
 // import { Query } from '@tanstack/react-query';
 
@@ -14,11 +14,12 @@ function Cart() {
   // const id=useParams;
   // console.log(id);
   //state
-  let [cart, setCart] = useState([]);
-
-  let usercontext = useContext(userContext);
+  // let [cart, setCart] = useState([]);
+  // const [, forceUpdate] = useState({});
+  const [, forceUpdate] = useReducer(x => x + 1,0);
+  let usercontext = useContext(UserContext);
   let token = usercontext?.token || "";
-
+ 
   //functions
   async function getdata(){
     console.log(token);
@@ -38,6 +39,8 @@ function Cart() {
       token
       }
     })
+    // setCart([]);
+    forceUpdate();
   }
 
   function decrementHandler(id: string, count: number){
@@ -46,6 +49,8 @@ function Cart() {
       token
       }
     })
+    // setCart([]);
+    forceUpdate();
   }
 
   function deleteHandler(id:string){
@@ -54,14 +59,20 @@ function Cart() {
       token
       }
     })
+    // setCart([]);
+    forceUpdate();
+    // return;
+    // render();
   }
-  let { data, isLoading, isFetching, error: get_error } = useQuery({
+  let { data, isLoading, isFetching } = useQuery({
     queryKey: ["Cart", ] ,
     queryFn:getdata
     
   });
   // useGet("", CART_BASE_URL, token);
-
+//  useEffect(()=>{
+//     forceUpdate();
+//   },[data])
   const columns=[ "Image", "Product", "Qty", "Price", "Action"];
       if(isLoading || isFetching){
         return <h2 className="text-center font-bold txet-7xl text-blue-600">
