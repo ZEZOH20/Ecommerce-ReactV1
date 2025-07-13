@@ -2,7 +2,7 @@
 
 A modern eCommerce application built with React, featuring server-side and client-side state management, responsive styling, and form validation. Hosted on Vercel for seamless deployment.
 
-[![Live Demo](https://img.shields.io/badge/demo-online-green?style=for-the-badge&logo=vercel)](https://your-vercel-app-url.vercel.app)
+[![Live Demo](https://img.shields.io/badge/demo-online-green?style=for-the-badge&logo=vercel)](https://ecommerce-react-v1-ruby.vercel.app/)
 
 ## ✨ Features
 
