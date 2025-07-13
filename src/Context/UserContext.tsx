@@ -1,11 +1,11 @@
-import React, { createContext, useState, ReactNode } from "react";
+import  { createContext, useState, ReactNode } from "react";
 
-interface State {
-  token: string;
-  setToken: React.Dispatch<React.SetStateAction<string>>;
-}
+// interface State {
+//   token: string;
+//   setToken: React.Dispatch<React.SetStateAction<string>>;
+// }
 
-export const UserContext = createContext<State>({
+export const UserContext = createContext({
   token: "",
   setToken: () => {},
 });
