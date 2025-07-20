@@ -8,7 +8,7 @@ import Layout from './components/Layout/Layout.tsx';
 import { Toaster } from 'react-hot-toast';
 // import React from "react";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // import UserContext from './Context/UserContext.tsx';
 // import UserContextProvider from './Context/UserContext.tsx';
@@ -20,7 +20,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProductDetails from './components/ProductDetails/productDetails.tsx';
 import Cart from './components/Cart/Cart.tsx';
 
-const queryclient= new QueryClient();
+const queryClient= new QueryClient();
 
 function App() {
     
@@ -43,7 +43,8 @@ function App() {
     return (
         <>
         
-            <QueryClientProvider client={queryclient}>
+            <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools initialIsOpen={false} />
                 <UserContextProvider>
                     <RouterProvider router={router}/>
                 </UserContextProvider>

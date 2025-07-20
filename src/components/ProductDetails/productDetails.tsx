@@ -26,6 +26,8 @@ function ProductDetails() {
   const params = useParams();
   console.log(params);
   const id = params.id;
+  const category= params.category;
+  console.log(`category is ${category}`);
   console.log(id);
   const url = `${PRODUCTS_BASE_URL}/${id}`;
   function getProductDetails() {

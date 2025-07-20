@@ -5,7 +5,7 @@ import axios from "axios";
 import { AUTH_BASE_URL } from "../../Constants";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../Context/UserContext";
-
+import "@fortawesome/fontawesome-free/css/all.min.css"
 
 function Signin() {
   //state
@@ -105,12 +105,15 @@ function Signin() {
           )}
 
           <button type="submit" className="login_button" disabled={loading}>
-            {loading ? "Loading" : "Login"}
+            {loading ? <i className="fa fa-spinner fa-spin text-white"></i> : "Login"}
           </button>
+          
         </form>
       </div>
     </>
   );
 }
+
+
 
 export default Signin;
