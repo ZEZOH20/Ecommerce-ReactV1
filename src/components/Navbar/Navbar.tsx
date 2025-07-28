@@ -1,11 +1,11 @@
 import  {  useContext } from 'react';
-import { Link, Navigate, NavLink, redirect } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 // import { userContext } from '../../Context/UserContext';
 // import { userContext } from '../../Context/UserContext';
 import { UserContext } from '../../Context/UserContext';
 // import styles from './Navbar.module.css';
 import Signin from './../Signin/Signin';
-import { useNavigate } from 'react-router-dom';
+
 
 function Navbar() {
   const navigate= useNavigate(); // for programmatic routing
@@ -22,12 +22,12 @@ function Navbar() {
   }
   const loggedNavbarLinks=[
     {
-      title:"Home",
+      title:"home",
       path:"/"
     },
     {
       title:"Cart",
-      path:"/cart"
+      path:"/Cart"
     },
     {
       title:"Products",
@@ -37,6 +37,7 @@ function Navbar() {
       title:"Categories",
       path:"/categories"
     }, 
+     
   ];
 
   const notLoggednavbarLinks=[

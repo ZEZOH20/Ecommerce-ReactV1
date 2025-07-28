@@ -53,7 +53,7 @@ function Card(props: CardInterface) {
     <>
       <div className="w-full md:w-1/2 lg:w-1/3 p-2 ">
         <Link to={`/productDetails/${props.id}/${props.category}`}>
-          <div className="card shadow-md px-4 py-4 rounded-md ">
+          <div className="card shadow-md px-4 py-4 rounded-md w-full">
             <img className="w-full" src={props.img_src} alt="" />
 
             <h3 className="text-xl font-normal text-blue-600">
@@ -82,7 +82,7 @@ function Card(props: CardInterface) {
         
           <button
             onClick={() => addToCartHandler()}
-            className="text-white text-lg px-4 py-2 rounded-lg bg-blue-600 w-full mt-3 hover:shadow-md"
+            className="text-white text-lg px-4 py-2 rounded-lg bg-blue-600 w-full mt-3 hover:shadow-md cursor-pointer"
           >
             Add to cart
           </button>

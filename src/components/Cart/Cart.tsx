@@ -2,11 +2,13 @@ import { useContext, useRef } from "react";
 import { UserContext } from "../../Context/UserContext.tsx";
 import { Product } from "../../Interfaces/ProductInterface.ts";
 import axios from "axios";
-import { CART_BASE_URL } from "../../Constants.ts";
+import { CART_BASE_URL, CASH_BASE_URL, CHECKOUT_BASE_URL } from "../../Constants.ts";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 
 function Cart() {
+  const navigate= useNavigate();
   let usercontext = useContext(UserContext);
   let token = usercontext?.token || "";
 
@@ -60,6 +62,9 @@ function Cart() {
       },
     });
     refetch();
+  }
+  function checkout(){
+    // navigate('/checkout') 
   }
   let { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ["Cart"],
@@ -175,6 +180,7 @@ function Cart() {
           </tbody>
         </table>
       </div>
+      <button onClick={()=>checkout()}>Checkout</button>
     </>
   );
 }

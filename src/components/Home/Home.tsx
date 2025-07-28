@@ -3,6 +3,7 @@ import Cards from "../Cards/Cards";
 import Slider from "react-slick";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import MainSlider from './../MainSlider/MainSlider';
 interface cat {
   _id: string;
   name: string;
@@ -25,19 +26,19 @@ function Home() {
   const new_data = data?.data?.data || [];
   console.log("here here", new_data);
   // slider settings
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  // const settings = {
+  //   dots: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 1,
+  //   slidesToScroll: 1,
+  // };
 
   // console.log(children);
   return (
     <>
       {/* slider  */}
-      <div className="mx-auto max-w-5xl px-4 py-6">
+      {/* <div className="mx-auto max-w-5xl px-4 py-6">
         <Slider {...settings}>
           {new_data.map((category: cat) => (
             <div key={category._id} className="px-2">
@@ -49,7 +50,8 @@ function Home() {
             </div>
           ))}
         </Slider>
-      </div>
+      </div> */}
+      <MainSlider/>
 
       <Cards></Cards>
     </>

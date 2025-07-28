@@ -6,3 +6,5 @@ export const PRODUCTS_BASE_URL : string = 'https://ecommerce.routemisr.com/api/v
 export const WISHLIST_BASE_URL : string = 'https://ecommerce.routemisr.com/api/v1/wishlist';
 export const ORDERS_BASE_URL : string = 'https://ecommerce.routemisr.com/api/v1/orders';
 export const CATEGORIES_BASE_URL : string = 'https://ecommerce.routemisr.com/api/v1/categories';
+export const CHECKOUT_BASE_URL : string = 'https://ecommerce.routemisr.com/api/v1/orders/checkout-session';
+export const CASH_BASE_URL : string = 'https://ecommerce.routemisr.com/api/v1/orders';

@@ -19,6 +19,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProductDetails from './components/ProductDetails/productDetails.tsx';
 import Cart from './components/Cart/Cart.tsx';
+import Checkout from './components/Checkout/Checkout.tsx';
 
 const queryClient= new QueryClient();
 
@@ -32,8 +33,9 @@ function App() {
                 {path: '/signin', element: <Signin/>},
                 {path: '/signup', element: <Signup/>},
                 {path: '/cart', element: <ProtectedRoute><Cart/></ProtectedRoute>},
+                {path: '/checkout', element: <ProtectedRoute><Checkout/></ProtectedRoute>},
                 // {path: '/Products', element: <ProtectedRoute><Products/></ProtectedRoute>},
-                {path: '/productDetails/:id', element: <ProtectedRoute><ProductDetails/></ProtectedRoute>},
+                {path: '/productDetails/:id/:category', element: <ProtectedRoute><ProductDetails/></ProtectedRoute>},
                 {path: '/Categories', element: <ProtectedRoute><Categories/></ProtectedRoute>},
                 {path: '*', element: <Page404/>},
             ]

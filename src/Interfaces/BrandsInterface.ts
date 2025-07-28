@@ -1,5 +1,4 @@
-
-export interface ICategory {
+export type IBrand= {
   _id: string;
   name: string;
   slug: string;
@@ -7,5 +6,4 @@ export interface ICategory {
   createdAt: string,
   updatedAt: string
 }
-
-export type omittedCategory= Omit <ICategory, "createdAt"| "updatedAt">
+export type omittedBrand= Omit<IBrand, "createdAt"| "updatedAt">

@@ -4,7 +4,7 @@
 import axios from "axios";
 import { CATEGORIES_BASE_URL } from "../../Constants";
 import { useQuery } from "@tanstack/react-query";
-import { ICategory } from "./../../Interfaces/Categoriesinterface";
+import { ICategory } from "../../Interfaces/CategoriesInterface";
 
 function Categories() {
   function getCategories() {
