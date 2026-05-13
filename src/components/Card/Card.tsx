@@ -1,16 +1,15 @@
 import { useContext } from "react";
-import { UserContext } from "../../Context/UserContext.tsx";
+import { UserContext } from "../../Context/UserContextValue.ts";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { CardInterface } from "../../Interfaces/ProductInterface.ts";
-import { CART_BASE_URL } from "../../Constants.ts";
+import { CardInterface } from "../../Interfaces/CardInterface.ts";
+import { apiClient, authHeaders } from "../../api/client.ts";
 // import styles from './Card.module.css';
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 
 
 function Card(props: CardInterface) {
-  let { token } = useContext(UserContext) ?? { token: "default" };
+  const { token } = useContext(UserContext) ?? { token: "" };
   // const {token} = useContext(userContext);
   // let token = localStorage.getItem("token") || "";
   const { mutate: addToCart } = useMutation(
@@ -21,19 +20,9 @@ function Card(props: CardInterface) {
   )
 
   function postdata(){
-    if(token[0]==='"')
-    token=token.slice(1,-1); // to get expose of thedouble quotes
-    console.log(`token is ${token}`);
-    console.log(props.id);
-    return axios.post(`${CART_BASE_URL}`, 
-      { productId: props.id },{
-      headers:{
-        token
-      } 
-    })
+    return apiClient.post("/cart", { productId: props.id }, authHeaders(token));
   }
   
-  // usePost(`${CART_BASE_URL}`, token, props.id);
   function addToCartHandler() {
     addToCart(undefined, {
       onSuccess: () => {
@@ -52,7 +41,7 @@ function Card(props: CardInterface) {
   return (
     <>
       <div className="w-full md:w-1/2 lg:w-1/3 p-2 ">
-        <Link to={`/productDetails/${props.id}/${props.category}`}>
+        <Link to={`/product-details/${props.id}/${props.category}`}>
           <div className="card shadow-md px-4 py-4 rounded-md w-full">
             <img className="w-full" src={props.img_src} alt="" />
 

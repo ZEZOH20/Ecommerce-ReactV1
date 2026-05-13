@@ -1,21 +1,29 @@
-import { createContext, useState, ReactNode } from "react";
+import { useState, ReactNode } from "react";
+import { UserContext } from "./UserContextValue";
 
-interface State {
-  token: string;
-  setToken: (token : string) => void;
+function getStoredToken() {
+  const storedToken = localStorage.getItem("token") || "";
+
+  try {
+    const parsedToken = JSON.parse(storedToken);
+
+    if (typeof parsedToken === "string") {
+      localStorage.setItem("token", parsedToken);
+      return parsedToken;
+    }
+  } catch {
+    return storedToken;
+  }
+
+  return storedToken;
 }
-
-export const UserContext = createContext<State>({
-  token: "",
-  setToken: () => {},
-});
 
 export default function UserContextProvider({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [token, setToken] = useState(getStoredToken);
 
   return (
     <UserContext.Provider value={{ token, setToken }}>

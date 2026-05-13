@@ -1,12 +1,5 @@
-import React from 'react';
-// import styles from './WishList.module.css';
-
 function WishList() {
-  return(
-    <>
-        
-    </>
-  )
-};
+  return null;
+}
 
 export default WishList;

@@ -1,22 +1,24 @@
-import React from 'react';
-import axios from 'axios';
-// import styles from './CategorySlider.module.css';
 import { useQuery } from '@tanstack/react-query';
 import Slider from 'react-slick';
-import { PRODUCTS_BASE_URL } from '../../Constants';
+import { apiClient } from '../../api/client';
+
+interface Category {
+  _id: string;
+  name: string;
+  image: string;
+}
+
 function CategorySlider() {
-  // Tanstack Query
-  let {data:new_data}=useQuery({
+  const {data:new_data}=useQuery({
     queryFn:fetchData,
-    queryKey:["Products"]
+    queryKey:["Categories"]
   })
 
-  //Functions
   async function fetchData(){
-    return await axios.get(`${PRODUCTS_BASE_URL}`)
+    const response = await apiClient.get("/categories");
+    return response.data.data as Category[];
   }
 
-  // slider settings
   const settings = {
     dots: true,
     infinite: true,
@@ -25,11 +27,9 @@ function CategorySlider() {
     slidesToScroll: 1,
   };
   return(
-    <>
-          {/* slider  */}
       <div className="mx-auto max-w-5xl px-4 py-6">
         <Slider {...settings}>
-          {new_data?.map((category: cat) => (
+          {new_data?.map((category: Category) => (
             <div key={category._id} className="px-2">
               <img
                 src={category.image}
@@ -40,7 +40,6 @@ function CategorySlider() {
           ))}
         </Slider>
       </div>
-    </>
   )
 };
 

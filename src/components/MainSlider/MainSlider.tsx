@@ -1,17 +1,13 @@
-import React from "react";
-// import styles from './MainSlider.module.css';
-//importing assets
 import slider1 from "../../../public/assets/slider-image-1.jpeg";
 import slider2 from "../../../public/assets/slider-image-2.jpeg";
 import slider3 from "../../../public/assets/slider-image-3.jpeg";
 import slider4 from "../../../public/assets/grocery-banner.png";
 import slider5 from "../../../public/assets/grocery-banner-2.jpeg";
-// import slider6 from "../../../public/assets/slider-2.jpeg";
 
 import Slider from "react-slick";
 
 function MainSlider() {
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
     speed: 500,

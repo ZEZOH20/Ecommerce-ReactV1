@@ -1,17 +1,16 @@
 import { useState, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-import { AUTH_BASE_URL } from "../../Constants";
+import { apiClient } from "../../api/client";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../Context/UserContext";
-import "@fortawesome/fontawesome-free/css/all.min.css"
+import { UserContext } from "../../Context/UserContextValue";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function Signin() {
   //state
   const [loading, setLoading] = useState(false);
-  const {  setToken } = useContext(UserContext);
-  const [apiError, setApiError] = useState(null);
+  const { setToken } = useContext(UserContext);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const navigate = useNavigate(); // for programmatic routing
 
@@ -32,17 +31,18 @@ function Signin() {
       },
       validationSchema,
       onSubmit: () => {
-        console.log(values);
         setLoading(true);
-        axios
-          .post(`${AUTH_BASE_URL}/signin`, values)
+        apiClient
+          .post("/auth/signin", values)
           .then((res) => {
             setToken(res.data.token);
-            localStorage.setItem("token", JSON.stringify(res.data.token));
+            localStorage.setItem("token", res.data.token);
             navigate("/"); // redirecting to home page
           })
           .catch((error) => {
             setApiError(error?.response?.data?.message);
+          })
+          .finally(() => {
             setLoading(false);
           });
       },

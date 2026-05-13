@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
+import { apiClient } from "../../api/client";
 
 import { useNavigate } from "react-router-dom";
 
@@ -41,8 +41,8 @@ function Signup() {
       onSubmit: () => {
         setLoading(true);
         // console.log(values);
-        axios
-          .post("https://ecommerce.routemisr.com/api/v1/auth/signup", values)
+        apiClient
+          .post("/auth/signup", values)
           .then(() => {
             // successful signup attempt
             navigate("/signin"); // redirecting to signin page

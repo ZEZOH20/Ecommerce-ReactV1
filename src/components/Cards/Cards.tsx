@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Card from "../Card/Card.tsx";
-// import { useGet } from "../../Hooks/GetHook.tsx";
-import { PRODUCTS_BASE_URL } from "./../../Constants";
-import axios from "axios";
+import { apiClient } from "../../api/client.ts";
 interface Product {
   id: string;
   title: string;
@@ -14,47 +12,39 @@ interface Product {
     name: string;
   };
 }
+
+async function getProducts() {
+  const response = await apiClient.get("/products");
+  const products = response.data.data;
+  return Array.isArray(products) ? (products as Product[]) : [];
+}
+
 function Cards() {
-  const url = `${PRODUCTS_BASE_URL}`;
-  function getdata() {
-    return axios.get(url);
-  }
-  // const {data, error}=useGet("Products",url,'');
-  // const {data, error}={useGet("Products",url,'')};
-  const { data, error } = useQuery({
+  const { data: products = [], error, isError } = useQuery({
     queryKey: ["Products"],
-    queryFn: getdata,
+    queryFn: getProducts,
   });
 
-  const new_data = data?.data?.data || [];
-
-  // console.log("new_data: ",new_data);
   return (
-    <>
-      <div className="parent flex flex-wrap justify-evenly ">
-        {new_data ? (
-          new_data.map((p: Product) => {
-            // console.log('new data: ',new_data)
-            return (
-              <Card
-                key={p.id}
-                id={p.id}
-                title={p.title}
-                img_src={p.images[0]}
-                rating={p.ratingsAverage}
-                price={p.price}
-                category={p.category.name}
-              />
-            );
-          })
-        ) : (
-          <div className="alert_box">
-            {" "}
-            {error?.message || "Something went wrong"}
-          </div>
-        )}
-      </div>
-    </>
+    <div className="parent flex flex-wrap justify-evenly ">
+      {isError ? (
+        <div className="alert_box">
+          {error?.message || "Something went wrong"}
+        </div>
+      ) : (
+        products.map((p) => (
+          <Card
+            key={p.id}
+            id={p.id}
+            title={p.title}
+            img_src={p.images[0]}
+            rating={p.ratingsAverage}
+            price={p.price}
+            category={p.category.name}
+          />
+        ))
+      )}
+    </div>
   );
 }
 
